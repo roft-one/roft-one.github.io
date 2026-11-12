@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Archivo:wght@700;800;900&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
 
   <style>
     :root {
@@ -1761,7 +1762,7 @@
 
       <!-- What real people keep saying + Why shop directly from Roft (above footer) -->
       <section class="reviews-section" aria-labelledby="reviewsHeading">
-        <h2 id="reviewsHeading" class="reviews-heading">What You Get<br>from Us.</h2>
+        <h2 id="reviewsHeading" class="reviews-heading">What real<br>people keep saying.</h2>
         <p class="reviews-sub">Roft is built around the three things that matter most — sound, build, and value. Here is what each one means in practice. Verified customer reviews will be published here as they come in.</p>
         <div class="review-row">
           <div class="review-label">Sound<br>Quality</div>
@@ -1773,7 +1774,7 @@
         </div>
         <div class="review-row">
           <div class="review-label">Value for<br>Money</div>
-          <div><p class="review-text">Premium audio hardware shouldn't require a premium price tag. Roft earbuds are ₹1,499, inclusive of GST — honest tech, directly to your doorstep.</p><p class="review-meta">₹1,499, inclusive of GST. No inflated MRP.</p></div>
+          <div><p class="review-text">Premium audio hardware shouldn't require a premium price tag. Roft brings you honest audio at ₹1,499, inclusive of GST — honest tech, directly to your doorstep.</p><p class="review-meta">₹1,499, inclusive of GST. No inflated MRP.</p></div>
         </div>
       </section>
 
@@ -1781,7 +1782,7 @@
         <h2 id="whyShopHeading" class="why-shop-heading">Why shop<br>directly from Roft.</h2>
         <div class="why-row">
           <span class="why-icon" aria-hidden="true">🛡</span>
-          <div><h3>Warranty</h3><p>Roft earbuds are covered by Roft's manufacturing warranty for internal hardware defects. <a href="#/warranty">See Warranty Policy →</a></p></div>
+          <div><h3>Warranty</h3><p>Every Roft product is covered by Roft's manufacturing warranty for internal hardware defects. <a href="#/warranty">See Warranty Policy →</a></p></div>
         </div>
         <div class="why-row">
           <span class="why-icon" aria-hidden="true">🚚</span>
@@ -1793,7 +1794,7 @@
         </div>
         <div class="why-row">
           <span class="why-icon" aria-hidden="true">↩</span>
-          <div><h3>7-day unopened returns</h3><p>Unopened, sealed Roft earbuds can be returned within 7 days of delivery. Arrived defective out of the box? Report it within 48 hours for a free replacement. <a href="#/returns">See Returns &amp; Refunds →</a></p></div>
+          <div><h3>7-day unopened returns</h3><p>Unopened, sealed Roft products can be returned within 7 days of delivery. Arrived defective out of the box? Report it within 48 hours for a free replacement. <a href="#/returns">See Returns &amp; Refunds →</a></p></div>
         </div>
       </section>
     </div>
@@ -2153,26 +2154,10 @@
             </div>
           </div>
 
-          <!-- Payment Method -->
-          <div aria-label="Payment Method">
-            <span class="form-label" style="display: block; margin-bottom: 8px;">Payment Method</span>
-            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px; border-radius: var(--radius-md); border: 1.5px solid var(--accent); background: rgba(255,255,255,0.03);">
-              <div style="display: flex; align-items: center; gap: 12px;">
-                <span aria-hidden="true" style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--accent); display: inline-flex; align-items: center; justify-content: center;"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent);"></span></span>
-                <div>
-                  <div style="font-weight: 700; font-size: 0.95rem;">Pay online</div>
-                  <div style="font-size: 0.8rem; color: var(--text-secondary);">UPI (GPay, PhonePe, Paytm) · Cards · Net Banking</div>
-                </div>
-              </div>
-              <span style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; color: var(--success);">🔒 SECURE</span>
-            </div>
-            <p id="paymentNote" style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 8px;">Your order is confirmed once payment is verified.</p>
-          </div>
-
           <div id="checkoutErrorBox" class="form-error" role="alert"></div>
 
           <button type="button" id="placeOrderBtn" class="btn btn-primary" style="width: 100%; font-size: 1rem;">
-            Place Order
+            Proceed to Pay
           </button>
         </div>
 
@@ -2181,12 +2166,16 @@
           <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(52, 211, 153, 0.16); color: var(--success); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 700;">
             ✓
           </div>
-          <h3 style="font-family: 'Syne', sans-serif; font-size: 1.4rem;">Order Received</h3>
+          <h3 id="confirmationHeadingText" style="font-family: 'Syne', sans-serif; font-size: 1.4rem;">Order Received</h3>
           <div style="background: rgba(255,255,255,0.04); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 12px 18px; width: 100%;">
             <div style="font-size: 0.78rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em;">Order ID</div>
             <div id="confirmedOrderIdText" style="font-family: monospace; font-size: 1.15rem; font-weight: 700; color: var(--accent); margin-top: 4px;">Roft-00000000-0000</div>
+            <div id="confirmedPaymentIdWrap" style="display: none; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border-subtle);">
+              <div style="font-size: 0.72rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em;">Payment ID</div>
+              <div id="confirmedPaymentIdText" style="font-family: monospace; font-size: 0.9rem; font-weight: 700; color: var(--success); margin-top: 2px;"></div>
+            </div>
           </div>
-          <p style="font-weight: 600; color: var(--warning); background: rgba(251, 191, 36, 0.12); border: 1px solid rgba(251, 191, 36, 0.3); padding: 12px 16px; border-radius: var(--radius-sm); width: 100%;">
+          <p id="confirmationStatusBanner" style="font-weight: 600; color: var(--warning); background: rgba(251, 191, 36, 0.12); border: 1px solid rgba(251, 191, 36, 0.3); padding: 12px 16px; border-radius: var(--radius-sm); width: 100%;">
             Your order is confirmed once payment is verified.
           </p>
           <div style="display: flex; gap: 10px; width: 100%; margin-top: 8px;">
@@ -2280,27 +2269,14 @@
       gstPercent: 18, // Used to compute inclusive GST breakup for order & tax invoice
       phone: "+91 9239372502",
       email: "proton222285@proton.me",
-      PAYMENT_LINK: "", // Set payment URL here; opens in a new tab after placing order if set
-      RAZORPAY_KEY_ID: "", // Paste your Razorpay public Key ID (rzp_live_... / rzp_test_...) here once your account is ready. Never put the Key Secret in this file.
+      RAZORPAY_KEY_ID: "rzp_test_TzCHnp47shCccd", // Razorpay Key ID (rzp_test_... for Test Mode)
+      PAYMENT_LINK: "", // Fallback payment URL if Razorpay Key ID is empty
       seller: {
         businessName: "[Business name]",
         gstin: "[GSTIN]",
         address: "[Address]"
       }
     };
-
-    // Payment note under the Payment Method box (changes once a gateway is configured)
-    (function setPaymentNote() {
-      const note = document.getElementById("paymentNote");
-      if (!note) return;
-      if (CONFIG.RAZORPAY_KEY_ID && String(CONFIG.RAZORPAY_KEY_ID).trim() !== "") {
-        note.textContent = "You will pay securely through Razorpay. Your order is confirmed once payment is verified.";
-      } else if (CONFIG.PAYMENT_LINK && String(CONFIG.PAYMENT_LINK).trim() !== "") {
-        note.textContent = "A secure payment page opens after you place your order. Your order is confirmed once payment is verified.";
-      } else {
-        note.textContent = "Our team will share the secure payment details after you place your order. Your order is confirmed once payment is verified.";
-      }
-    })();
 
     /* ==========================================================================
        2. EXACT FIREBASE CONFIGURATION
@@ -3139,6 +3115,40 @@
       return `Roft-${yyyy}${mm}${dd}-${random4}`;
     }
 
+    function showOrderConfirmationStep(orderId, isPaid, paymentId, customBannerText) {
+      document.getElementById("confirmedOrderIdText").textContent = orderId;
+      const headingEl = document.getElementById("confirmationHeadingText");
+      const bannerEl = document.getElementById("confirmationStatusBanner");
+      const payWrap = document.getElementById("confirmedPaymentIdWrap");
+      const payText = document.getElementById("confirmedPaymentIdText");
+
+      if (isPaid) {
+        if (headingEl) headingEl.textContent = "Payment Successful!";
+        if (payWrap && payText && paymentId) {
+          payText.textContent = paymentId;
+          payWrap.style.display = "block";
+        }
+        if (bannerEl) {
+          bannerEl.textContent = customBannerText || "Payment verified! Your order is confirmed and your GST invoice is ready in My Orders.";
+          bannerEl.style.color = "var(--success)";
+          bannerEl.style.background = "rgba(29, 185, 84, 0.12)";
+          bannerEl.style.borderColor = "rgba(29, 185, 84, 0.35)";
+        }
+      } else {
+        if (headingEl) headingEl.textContent = "Order Received (Payment Pending)";
+        if (payWrap) payWrap.style.display = "none";
+        if (bannerEl) {
+          bannerEl.textContent = customBannerText || "Your order is saved as pending. Complete payment to confirm your order.";
+          bannerEl.style.color = "var(--warning)";
+          bannerEl.style.background = "rgba(251, 191, 36, 0.12)";
+          bannerEl.style.borderColor = "rgba(251, 191, 36, 0.3)";
+        }
+      }
+
+      document.getElementById("checkoutMainStep").style.display = "none";
+      document.getElementById("checkoutConfirmationStep").style.display = "flex";
+    }
+
     async function handlePlaceOrder() {
       const errBox = document.getElementById("checkoutErrorBox");
       errBox.classList.remove("visible");
@@ -3161,10 +3171,13 @@
       const orderId = generateOrderId();
 
       const placeBtn = document.getElementById("placeOrderBtn");
-      setButtonLoading(placeBtn, true, "Placing Order...");
+      setButtonLoading(placeBtn, true, "Preparing Payment...");
 
       try {
-        const { collection, addDoc, serverTimestamp } = state.sdk;
+        const { collection, addDoc, doc, updateDoc, serverTimestamp } = state.sdk;
+        const rzpKey = String(CONFIG.RAZORPAY_KEY_ID || "").trim();
+        const isTestMode = rzpKey.startsWith("rzp_test_");
+
         // Write ONE document to Firestore "orders" collection with exact required schema
         const orderDoc = {
           uid: state.currentUser.uid,
@@ -3190,16 +3203,97 @@
             state: selectedAddr.state,
             label: selectedAddr.label
           },
+          paymentGateway: rzpKey ? (isTestMode ? "razorpay_test" : "razorpay_live") : "manual",
           status: "pending",
           createdAt: serverTimestamp()
         };
 
-        await addDoc(collection(state.db, "orders"), orderDoc);
-
-        document.getElementById("confirmedOrderIdText").textContent = orderId;
-        document.getElementById("checkoutMainStep").style.display = "none";
-        document.getElementById("checkoutConfirmationStep").style.display = "flex";
+        const createdOrderRef = await addDoc(collection(state.db, "orders"), orderDoc);
         clearCart();
+
+        // Launch Razorpay Checkout if RAZORPAY_KEY_ID is configured
+        if (rzpKey !== "") {
+          if (typeof window.Razorpay === "undefined") {
+            throw new Error("Razorpay payment script could not load. Please check your internet connection and try again.");
+          }
+
+          let paymentHandled = false;
+          const options = {
+            key: rzpKey,
+            amount: Math.round(total * 100), // Amount in paise (INR * 100)
+            currency: "INR",
+            name: CONFIG.brand,
+            description: `${CONFIG.productName} (${CONFIG.colour}) × ${qty}`,
+            prefill: {
+              name: selectedAddr.name || state.currentUser.displayName || "",
+              email: state.currentUser.email || "",
+              contact: selectedAddr.phone ? `+91${selectedAddr.phone}` : ""
+            },
+            notes: {
+              roft_order_id: orderId,
+              shipping_city: selectedAddr.city || "",
+              shipping_pin: selectedAddr.pin || ""
+            },
+            theme: {
+              color: "#C14A24"
+            },
+            handler: async function (response) {
+              paymentHandled = true;
+              const paymentId = response.razorpay_payment_id || "";
+              try {
+                await updateDoc(doc(state.db, "orders", createdOrderRef.id), {
+                  status: "paid",
+                  paymentId: paymentId,
+                  paidAt: serverTimestamp()
+                });
+                showOrderConfirmationStep(orderId, true, paymentId);
+                showToast("Payment successful! Order " + orderId + " confirmed.");
+              } catch (updateErr) {
+                showOrderConfirmationStep(
+                  orderId,
+                  true,
+                  paymentId,
+                  "Payment succeeded (ID: " + paymentId + "), but status sync had an issue: " + friendlyFirebaseError(updateErr)
+                );
+              }
+            },
+            modal: {
+              ondismiss: function () {
+                if (!paymentHandled) {
+                  showOrderConfirmationStep(
+                    orderId,
+                    false,
+                    "",
+                    "Payment popup was closed before completion. Your order is saved as pending in My Orders."
+                  );
+                  showToast("Payment cancelled — order saved as pending.");
+                }
+              }
+            }
+          };
+
+          const rzpInstance = new window.Razorpay(options);
+          rzpInstance.on("payment.failed", function (failResp) {
+            paymentHandled = true;
+            const reason = (failResp && failResp.error && failResp.error.description)
+              ? failResp.error.description
+              : "Test payment failed.";
+            showOrderConfirmationStep(
+              orderId,
+              false,
+              "",
+              "Payment failed (" + reason + "). Your order is saved as pending."
+            );
+            showToast("Payment failed: " + reason);
+          });
+
+          setButtonLoading(placeBtn, false);
+          rzpInstance.open();
+          return;
+        }
+
+        // Fallback if no Razorpay key is set
+        showOrderConfirmationStep(orderId, false, "");
         showToast("Order placed: " + orderId);
 
         if (CONFIG.PAYMENT_LINK && String(CONFIG.PAYMENT_LINK).trim() !== "") {
@@ -3319,6 +3413,12 @@
               <span>${escapeHtml(item.name)} × ${escapeHtml(item.qty)}</span>
               <strong>${escapeHtml(formatINR(order.total || item.qty * item.price))}</strong>
             </div>
+
+            ${order.paymentId ? `
+              <div style="font-size: 0.82rem; color: var(--text-secondary);">
+                Payment ID: <strong style="color: var(--success); font-family: monospace;">${escapeHtml(order.paymentId)}</strong>
+              </div>
+            ` : ''}
 
             ${order.trackingId ? `
               <div style="font-size: 0.82rem; color: var(--text-secondary);">
@@ -3445,8 +3545,8 @@
         "#/terms": {
           title: "Roft Terms & Conditions",
           html: `
-            <p class="policy-meta">Last Updated: [Insert Date]</p>
-            <p>Welcome to Roft. These Terms &amp; Conditions outline the rules and regulations for the use of our website and the purchase of our products, including Roft earbuds. By accessing this website and placing an order, you accept these terms in full.</p>
+            <p class="policy-meta">Last Updated: November 12, 2026</p>
+            <p>Welcome to Roft. These Terms &amp; Conditions outline the rules and regulations for the use of our website and the purchase of our products, including the Roft-one. By accessing this website and placing an order, you accept these terms in full.</p>
             <h3>1. General Conditions</h3>
             <p>We reserve the right to refuse service to anyone for any reason at any time. You understand that your content (not including credit card information) may be transferred unencrypted over various networks. Credit card information is always encrypted during transfer over networks.</p>
             <h3>2. Products and Pricing</h3>
@@ -3471,8 +3571,8 @@
         "#/privacy": {
           title: "Roft Privacy Policy",
           html: `
-            <p class="policy-meta">Last Updated: [Insert Date]</p>
-            <p>At Roft, we value your privacy. This Privacy Policy explains how we collect, use, and protect your personal information when you visit our website or purchase Roft products.</p>
+            <p class="policy-meta">Last Updated: November 12, 2026</p>
+            <p>At Roft, we value your privacy. This Privacy Policy explains how we collect, use, and protect your personal information when you visit our website or purchase the Roft-one and other products.</p>
             <h3>1. Information We Collect</h3>
             <p>When you use our store, we collect a few different types of information to make sure you get your order:</p>
             <ul><li><strong>Personal Information:</strong> When you make a purchase, we collect your name, billing address, shipping address, email address, and phone number.</li><li><strong>Payment Information:</strong> We use secure third-party payment gateways (like Razorpay, UPI, or Stripe) to process your payments. We do not store your credit card or UPI PIN numbers on our servers.</li><li><strong>Device Information:</strong> When you browse our site, we automatically receive your computer's internet protocol (IP) address, browser type, and operating system. This helps us make our website work better on your device.</li></ul>
@@ -3513,8 +3613,8 @@
         "#/returns": {
           title: "Roft Returns & Refunds Policy",
           html: `
-            <p class="policy-meta">Last Updated: [Insert Date]</p>
-            <p>At Roft, we are committed to delivering high-quality audio experiences. Due to the personal hygiene nature of in-ear audio devices like Roft earbuds, our return guidelines are strictly enforced to ensure the safety and satisfaction of all our customers.</p>
+            <p class="policy-meta">Last Updated: November 12, 2026</p>
+            <p>At Roft, we are committed to delivering high-quality audio experiences. Due to the personal hygiene nature of in-ear audio devices from Roft, our return guidelines are strictly enforced to ensure the safety and satisfaction of all our customers.</p>
             <h3>1. Returns for Unopened Items</h3>
             <p>We accept returns for buyer's remorse only if the product is completely unopened and unused.</p>
             <ul><li>You have 7 days from the date of delivery to request a return for an unopened item.</li><li>The product must be in its original, sealed shrink-wrap packaging. If the factory seal is broken, the return will be automatically rejected.</li><li><strong>Return Shipping:</strong> For unopened returns, the customer is responsible for the cost of return shipping.</li></ul>
@@ -3537,16 +3637,16 @@
         "#/warranty": {
           title: "Roft Limited Warranty Policy",
           html: `
-            <p class="policy-meta">Last Updated: [Insert Date]</p>
-            <p>Roft stands behind the quality of our products. We offer a Limited Warranty on Roft earbuds to ensure that you receive a device free from manufacturing defects. This policy outlines what is and is not covered.</p>
+            <p class="policy-meta">Last Updated: November 12, 2026</p>
+            <p>Roft stands behind the quality of our products. We offer a Limited Warranty on Roft products to ensure that you receive a device free from manufacturing defects. This policy outlines what is and is not covered.</p>
             <h3>1. Warranty Period</h3>
-            <p>Roft earbuds are covered by a [6-Month OR 1-Year] Limited Warranty starting from the original date of delivery. This warranty applies only to the original purchaser and is non-transferable.</p>
+            <p>Roft products are covered by a [6-Month OR 1-Year] Limited Warranty starting from the original date of delivery. This warranty applies only to the original purchaser and is non-transferable.</p>
             <h3>2. What is Covered</h3>
             <p>This Limited Warranty covers defects in materials and workmanship under normal, everyday use. This includes:</p>
             <ul><li>Internal hardware failures (e.g., one earbud stops producing sound without physical damage).</li><li>Battery or charging malfunctions (e.g., the charging case refuses to take a charge out of the box).</li><li>Bluetooth connectivity failures that are traced to a hardware defect.</li></ul>
             <h3>3. What is NOT Covered (Warranty Exclusions)</h3>
             <p>Because earbuds are portable devices subjected to daily wear and tear, this warranty does not cover:</p>
-            <ul><li><strong>Physical Damage:</strong> Cracks, dents, broken hinges, or snapped stems caused by dropping, crushing, or general mishandling.</li><li><strong>Liquid Damage:</strong> Damage caused by sweat, rain, swimming, washing machines, or accidental spills, regardless of any IP rating.</li><li><strong>Improper Charging:</strong> Motherboard or battery damage caused by using unauthorized, cheap, or excessively high-voltage fast chargers. (We recommend standard 5V/1A adapters).</li><li><strong>Wear and Tear:</strong> Normal battery degradation over time, cosmetic blemishes, scratches, or fading of the product color.</li><li><strong>Lost or Stolen Items:</strong> Earbuds or charging cases that are lost or stolen are not covered.</li><li><strong>Unauthorized Repairs:</strong> Any attempt to open, modify, or repair your Roft earbuds by a third party will immediately void the warranty.</li></ul>
+            <ul><li><strong>Physical Damage:</strong> Cracks, dents, broken hinges, or snapped stems caused by dropping, crushing, or general mishandling.</li><li><strong>Liquid Damage:</strong> Damage caused by sweat, rain, swimming, washing machines, or accidental spills, regardless of any IP rating.</li><li><strong>Improper Charging:</strong> Motherboard or battery damage caused by using unauthorized, cheap, or excessively high-voltage fast chargers. (We recommend standard 5V/1A adapters).</li><li><strong>Wear and Tear:</strong> Normal battery degradation over time, cosmetic blemishes, scratches, or fading of the product color.</li><li><strong>Lost or Stolen Items:</strong> Earbuds or charging cases that are lost or stolen are not covered.</li><li><strong>Unauthorized Repairs:</strong> Any attempt to open, modify, or repair a Roft product by a third party will immediately void the warranty.</li></ul>
             <h3>4. How to Claim Your Warranty</h3>
             <p>If you believe your Roft product has a manufacturing defect, please follow these steps:</p>
             <ul><li><strong>1. Contact Support:</strong> Email our team at [support@roft.in] with the subject line "Warranty Claim: [Your Order Number]".</li><li><strong>2. Provide Proof:</strong> Attach a copy of your original purchase invoice and a short video clearly demonstrating the issue.</li><li><strong>3. Ship to Us:</strong> If the claim is preliminarily approved, you will be asked to ship the defective unit back to our service center. Note: The customer is responsible for the shipping costs to send the product to Roft.</li></ul>
@@ -3561,14 +3661,14 @@
           title: "Roft Frequently Asked Questions (FAQ)",
           html: `
             <h3>1. Product &amp; Usage</h3>
-            <p class="faq-q"><strong>How do I pair Roft earbuds with my phone?</strong></p>
-            <p>Open the charging case and remove both earbuds. Turn on Bluetooth on your smartphone, search for new devices, and tap on "Roft" to connect. They will automatically pair to the last connected device in the future.</p>
-            <p class="faq-q"><strong>How do I reset my Roft earbuds?</strong></p>
+            <p class="faq-q"><strong>How do I pair the Roft-one with my phone?</strong></p>
+            <p>Open the charging case and remove both earbuds. Turn on Bluetooth on your smartphone, search for new devices, and tap on "Roft-one" to connect. They will automatically pair to the last connected device in the future.</p>
+            <p class="faq-q"><strong>How do I reset my Roft-one earbuds?</strong></p>
             <p>If only one earbud is playing or they won't connect, place both earbuds back into the charging case. Leave the lid open, and tap and hold the touch sensor on both earbuds simultaneously for 10 seconds until the LED lights flash. This resets them to factory settings.</p>
             <p class="faq-q"><strong>What type of charger should I use?</strong></p>
             <p>Always use a standard 5V/1A charging brick or plug the Type-C cable directly into a computer USB port. Do not use heavy fast chargers (33W, 65W, etc.), as pushing too much voltage into small earbud batteries can damage the motherboard and will void your warranty.</p>
-            <p class="faq-q"><strong>Can I use Roft earbuds while working out or in the rain?</strong></p>
-            <p>Roft earbuds are designed to be sweat and splash-resistant, making them great for the gym. However, they are not completely waterproof. Do not submerge them in water, wear them while swimming, or wash them under a tap.</p>
+            <p class="faq-q"><strong>Can I use the Roft-one while working out or in the rain?</strong></p>
+            <p>The Roft-one is designed to be sweat and splash-resistant, making them great for the gym. However, they are not completely waterproof. Do not submerge them in water, wear them while swimming, or wash them under a tap.</p>
             <h3>2. Shipping &amp; Tracking</h3>
             <p class="faq-q"><strong>How long will it take to receive my order?</strong></p>
             <p>Orders are dispatched within 1 to 2 business days. Delivery across India generally takes between 3 to 7 business days, depending on your exact location.</p>
@@ -3583,8 +3683,8 @@
             <p>Because earbuds are placed directly inside the ear, we cannot accept returns on opened products for hygiene and safety reasons. We only accept returns for a refund if the product is completely sealed in its original shrink-wrap within 7 days of delivery.</p>
             <p class="faq-q"><strong>My earbuds arrived completely dead/defective. What do I do?</strong></p>
             <p>If your Roft product has a manufacturing defect right out of the box, email us at support@roft.in within 48 hours of delivery with your order number and a short video showing the issue. We will arrange a free replacement.</p>
-            <p class="faq-q"><strong>Is there a warranty on Roft earbuds?</strong></p>
-            <p>Yes, Roft earbuds are covered by a [6-month/1-year] limited manufacturing warranty covering internal hardware defects. Physical damage, water damage, and battery degradation from fast chargers are not covered.</p>
+            <p class="faq-q"><strong>Is there a warranty on Roft products?</strong></p>
+            <p>Yes, Roft products are covered by a [6-month/1-year] limited manufacturing warranty covering internal hardware defects. Physical damage, water damage, and battery degradation from fast chargers are not covered.</p>
             <h3>4. Orders &amp; Cancellations</h3>
             <p class="faq-q"><strong>Can I cancel my order?</strong></p>
             <p>You can cancel your order for a full refund anytime before the product is dispatched. Once you receive the shipping confirmation email with your tracking number, the order can no longer be cancelled.</p>
@@ -3595,10 +3695,10 @@
         "#/cancellation": {
           title: "Roft Cancellation Policy",
           html: `
-            <p class="policy-meta">Last Updated: [Insert Date]</p>
+            <p class="policy-meta">Last Updated: November 12, 2026</p>
             <p>At Roft, we understand that sometimes you might change your mind. Our Cancellation Policy is designed to be straightforward and fair.</p>
             <h3>1. When You Can Cancel</h3>
-            <p>You can cancel your order for Roft earbuds (or any other product) at any time before your order is dispatched from our warehouse.</p>
+            <p>You can cancel your order for the Roft-one (or any other product) at any time before your order is dispatched from our warehouse.</p>
             <ul><li><strong>Full Refund:</strong> If you cancel before dispatch, you will receive a 100% refund of your purchase amount, including any shipping fees paid.</li><li><strong>How to Cancel:</strong> To cancel your order, please email our support team immediately at support@roft.in with the subject line "Order Cancellation: [Your Order Number]".</li></ul>
             <h3>2. When You Cannot Cancel</h3>
             <p>Once your order has been handed over to our delivery partner and a tracking number has been generated, the order cannot be cancelled.</p>
@@ -3616,7 +3716,7 @@
         "#/contact": {
           title: "Contact Roft",
           html: `
-            <p>We are here to help! If you have any questions about Roft, your order, or our policies, please reach out to us through any of the channels below. Our support team will get back to you as quickly as possible.</p>
+            <p>We are here to help! If you have any questions about Roft products, your order, or our policies, please reach out to us through any of the channels below. Our support team will get back to you as quickly as possible.</p>
             <h3>Customer Support</h3>
             <ul><li><strong>Email:</strong> support@roft.in (Recommended for all order-related queries, cancellations, and warranty claims)</li><li><strong>Phone:</strong> +91 [Insert Business Phone Number]</li><li><strong>Business Hours:</strong> Monday to Saturday, 10:00 AM to 6:00 PM (IST)</li></ul>
             <p>Please include your Order ID in the subject line of your email for faster resolution.</p>
@@ -3633,7 +3733,7 @@
           html: `
             <p>Welcome to Roft. Born in North Bengal, we are an independent consumer technology brand built on a simple belief: premium audio hardware shouldn't require a premium price tag.</p>
             <p>The electronics market is flooded with overpriced gadgets and cheap knock-offs that break down after a few months. With a deep background in device teardowns, internal hardware repairs, and consumer tech, we know exactly what makes electronics tick — and what causes them to fail. We created Roft because we were tired of seeing compromises.</p>
-            <p>Our first product is the result of this hands-on hardware experience. We focus on what actually matters: solid build quality, reliable components, and clear sound, stripping away the unnecessary marketing gimmicks that drive up costs.</p>
+            <p>Our first product, the Roft-one, is the result of this hands-on hardware experience. We focus on what actually matters: solid build quality, reliable components, and clear sound, stripping away the unnecessary marketing gimmicks that drive up costs.</p>
             <p>We aren't a massive, faceless corporation. We are a homegrown brand operating right out of Siliguri, dedicated to delivering honest, high-quality tech directly to your doorstep.</p>
             <p>Thank you for trusting us with your audio experience.</p>
             <p class="about-signoff">— Lucian<span>Founder, Roft</span></p>
@@ -3892,7 +3992,7 @@
           wrapTarget = isWrapped ? 1 : 0;
 
           if (isWrapped) {
-            showToast("Tangled string wrapped around your Roft earbuds!");
+            showToast("Tangled string wrapped around Roft-one!");
           } else {
             showToast("Tangled string released back into the air!");
           }
